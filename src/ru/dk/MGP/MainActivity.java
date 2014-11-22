@@ -75,6 +75,7 @@ public class MainActivity extends Activity
 	
 	public void OnB1Click(View view)
 	{
+		//setContentView(R.layout.levelchooser);
 		//dt = new DrawThread();
 		//long time= System.currentTimeMillis();
 		//Particle.Move(10000);
