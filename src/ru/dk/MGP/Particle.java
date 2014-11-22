@@ -31,7 +31,7 @@ public class Particle
 	
 	static public void Init(int w,int h)
 	{
-		Particle.particles= new Particle[(w*h)];
+		Particle.particles= new Particle[1024*1024];
 		
 		for(int i=0;i<Particle.particles.length;i++)
 			Particle.particles[i]=null;
@@ -110,6 +110,7 @@ public class Particle
 		this.n=i;
 		Random rnd= new Random();
 		this.color=Color.argb(128,rnd.nextInt(128+64)+128-64,rnd.nextInt(128+64)+128-64,rnd.nextInt(128+64)+128-64/*0,255,0*/);
+		//this.color=Color.argb(128*2-1,255,255,255);
 		//circle = new FloatingParticle.Builder(MainActivity.thisis,this.n);
 		/*BitmapDrawable bd = null;
 		if(q>=0.25)
@@ -155,7 +156,7 @@ public class Particle
 			//MainActivity.thisis.ShowToast(p1.ax+" "+p2.ax);
 		}
 		
-		if(d>p1.r+p2.r&&d<=p1.r*(1+Math.abs(p1.q/10))+p2.r*(1+Math.abs(p2.q/10)))
+		if(d>p1.r+p2.r&&d<=p1.r*(1+Math.abs(p1.q/5))+p2.r*(1+Math.abs(p2.q/5)))
 		{
 			//charging
 			//MainActivity.thisis.ShowToast("2");
@@ -410,6 +411,41 @@ public class Particle
 		//MainActivity.thisis.ShowToast("charging"+charge);
 	}
 	
+	public boolean CollisionWithBorders()
+	{
+		boolean f=false;
+		
+		//left
+		if(this.x-this.r<=getXMin()){
+			this.vx=-this.vx;
+			this.x=getXMin()+this.r+1;
+			f=true;
+		}
+		
+		//right
+		if(this.x+this.r>=getXMax()){
+			this.vx=-this.vx;
+			this.x=getXMax()-this.r-1;
+			f=true;
+		}
+		
+		//top
+		if(this.y-this.r<=getYMin()){
+			this.vy=-this.vy;
+			this.y=getYMin()+this.r+1;
+			f=true;
+		}
+
+		//bottom
+		if(this.y+this.r>=getYMax()){
+			this.vy=-this.vy;
+			this.y=getYMax()-this.r-1;
+			f=true;
+		}
+		
+		return f;
+	}
+	
 	public void Change(int time/*in milliseconds*/)
 	{
 		float t=time/1000.0f*timefactor;
@@ -417,6 +453,7 @@ public class Particle
 		this.y=(float)(this.y+this.vy*t+this.ay*Math.pow(t,2)/2);
 		this.vx=this.vx+this.ax*t;
 		this.vy=this.vy+this.ay*t;
+		CollisionWithBorders();
 		//MainActivity.thisis.ShowToast(this.ax+" "+this.ay);
 		//Log.i("Particle.Change",this.toString());
 		this.ax=0;

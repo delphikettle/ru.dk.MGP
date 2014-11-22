@@ -88,7 +88,7 @@ public class MainActivity extends Activity
 	//	draw();
 		Random rnd=new Random();
 		//new Particle(rnd.nextDouble()*w,rnd.nextDouble()*h,0,0,rnd.nextInt(2048*32/2)+1024*4, Math.random()*4-2);
-		new Particle(rnd.nextFloat()*w/thislevel.getScale(),rnd.nextFloat()*h/thislevel.getScale(),(float)(Math.random()*10-5),(float)(Math.random()*10-5),rnd.nextInt(2048*4)+1024, rnd.nextInt(9)-4);
+		new Particle(rnd.nextFloat()*w/thislevel.getScale(),rnd.nextFloat()*h/thislevel.getScale(),(float)(Math.random()*10-5),(float)(Math.random()*10-5),rnd.nextInt(2048)+1024, rnd.nextInt(9)-4);
 		//new Particle(100,100,0,0,Math.PI*10000, 0);
 		//MoveThread.is_move=true;
 		//ShowToast(""+Particle.particles[0].vx+" "+Particle.particles[0].vy+"\n"+Particle.particles[1].vx+" "+Particle.particles[1].vy+"\n\n"+Particle.particles[0].r+" "+Particle.particles[0].r);
@@ -128,6 +128,7 @@ public class MainActivity extends Activity
 	
 	
 	
+	
 	static public void ShowToast(String s)
 	{
 		Toast t1=Toast.makeText(thisis,s,Toast.LENGTH_LONG);
@@ -149,6 +150,7 @@ public class MainActivity extends Activity
 	{
 		// TODO: Implement this method
 		ShowToast("onPause");
+		thislevel.Pause();
 		super.onPause();
 	}
 
@@ -157,6 +159,7 @@ public class MainActivity extends Activity
 	{
 		// TODO: Implement this method
 		ShowToast("onResume");
+		thislevel.Resume();
 		super.onResume();
 	}
 

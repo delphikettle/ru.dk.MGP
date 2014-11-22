@@ -14,6 +14,7 @@ public abstract class Level extends View
 	int type;
 	int w,h;
 	float x_shift,y_shift,scale;
+	Task[] tasks;
 	//public static Level thislevel;
 	public final int
 		T_GETCHARGE=1
@@ -49,6 +50,7 @@ public abstract class Level extends View
 		ViewGroup root = (ViewGroup) activity.findViewById(android.R.id.content);
 		root.addView(this, params);
 		*/
+		tasks=new Task[1];
 		background=newBackground(); 
 		background.setX(0);
 		background.setY(0);
@@ -61,7 +63,13 @@ public abstract class Level extends View
 	}
 	public abstract Background newBackground();
 	public abstract void Init();
-	public abstract void Review();
+	public boolean Review(){
+		boolean f=true;
+		for(int i=0;i<tasks.length;i++) {
+			if(tasks[i]!=null)if(!tasks[i].is_ended())f=false;
+		}
+		return f;
+	}
 	
 	public int getW(){
 		return this.w;
@@ -116,21 +124,26 @@ public abstract class Level extends View
 
 	public int setXMax(int newXMax)
 	{
-		return x_max=newXMax>x_min?newXMax:x_max;
+		
+		//return x_max=newXMax>x_min?newXMax:x_max;
+		return x_max=Particle.setXMax(newXMax);
 	}
 
 	public int setXMin(int newXMin)
 	{
-		return x_min=newXMin<x_max?newXMin:x_min;
+		//return x_min=newXMin<x_max?newXMin:x_min;
+		return x_min=Particle.setXMin(newXMin);
 	}
 	public int setYMax(int newYMax)
 	{
-		return y_max=newYMax>y_min?newYMax:y_max;
+		//return y_max=newYMax>y_min?newYMax:y_max;
+		return y_max=Particle.setYMax(newYMax);
 	}
 
 	public int setYMin(int newYMin)
 	{
-		return y_min=newYMin<y_max?newYMin:y_min;
+		//return y_min=newYMin<y_max?newYMin:y_min;
+		return y_min=Particle.setYMin(newYMin);
 	}
 
 	public int getXMax()
@@ -163,20 +176,34 @@ public abstract class Level extends View
 		canvas.drawRect((x_min+x_shift-16)*scale,(y_min+y_shift-16)*scale,(x_max+x_shift+16)*scale,(y_max+y_shift+16)*scale,paint);
 		paint.setStyle(Paint.Style.FILL);
 		Particle p=Particle.particles[0];
+		
 		for (int i=0;i<=Particle.n_max;p=Particle.particles[i+=1])
 			if(p!=null)
 			{
 				
-				if(p.q>=0.0125)paint.setShadowLayer((float)(p.q*p.r*scale/5.0f),0,0,Color.argb(255,255,0,0));
-				if(p.q>-0.0125&&p.q<0.0125)paint.setShadowLayer((float)Math.abs(p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,0));
-				if(p.q<=-0.0125)paint.setShadowLayer((float)(-p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,255));
+				if(p.q>=0.0)paint.setShadowLayer((p.q*p.r*scale/5.0f),0,0,Color.argb(255,255,0,0));
+				//if(p.q>-0.0125&&p.q<0.0125)paint.setShadowLayer((float)Math.abs(p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,0));
+				if(p.q<=-0.0)paint.setShadowLayer((-p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,255));
 				
 				//paint.setShadowLayer((float)Math.abs(p.r*p.q),0,0,Color.argb(100,p.q>0?(int)p.q/10*255:0,0,p.q<0?-(int)p.q/10*255:0));
 				paint.setColor(p.color);
-				canvas.drawCircle((float)(p.x+x_shift)*scale,(float)(p.y+y_shift)*scale,(float)p.r*scale,paint);
+				canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale,paint);
 				//paint.setARGB(255,0,0,0);
 				//canvas.drawText(""+Math.round(p.q*100)/100.0,(float)p.x,(float)p.y,paint);
 			}
+
+		p=Particle.particles[0];
+		if(p.q>=0.0)paint.setShadowLayer((p.q*p.r*scale/5.0f),0,0,Color.argb(255,255,0,0));
+		//if(p.q>-0.0125&&p.q<0.0125)paint.setShadowLayer((float)Math.abs(p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,0));
+		if(p.q<=-0.0)paint.setShadowLayer((-p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,255));
+
+		//paint.setShadowLayer((float)Math.abs(p.r*p.q),0,0,Color.argb(100,p.q>0?(int)p.q/10*255:0,0,p.q<0?-(int)p.q/10*255:0));
+		paint.setColor(p.color);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.8f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.6f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.4f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.2f,paint);
+		
 		this.Review();
 			
 		invalidate();
@@ -201,7 +228,7 @@ public abstract class Level extends View
 //		return super.onTouchEvent(event);
 //	}
 
-	
+
 	
 	
 	abstract static public class Builder{
