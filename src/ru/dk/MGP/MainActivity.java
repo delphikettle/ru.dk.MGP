@@ -12,7 +12,7 @@ import android.graphics.drawable.*;
 import ru.dk.MGP.Levels.*;
 import android.util.*;
 
-public class MainActivity extends Activity implements OnTouchListener
+public class MainActivity extends Activity //implements OnTouchListener
 {
 	//int ni=0;
 	MoveThread mt;
@@ -71,7 +71,8 @@ public class MainActivity extends Activity implements OnTouchListener
 		//thislevel.setY(0);
         //setContentView(R.layout.main);
 		for(int i=0;i<10;i++)pointers[i]=new PointerCoordinate(i);
-		thislevel.setOnTouchListener(this);
+		//thislevel.setOnTouchListener(this);
+		
     }
 	
 	
@@ -107,6 +108,7 @@ public class MainActivity extends Activity implements OnTouchListener
 	}
 
 	PointerCoordinate[] pointers=new PointerCoordinate[10];
+
 	
 //	public class PointerCoordinate{boolean active;
 //		float x,y,lastx,lasty;
@@ -147,7 +149,7 @@ public class MainActivity extends Activity implements OnTouchListener
 //	}
 //	
 	@Override
-	public boolean onTouch(View v,MotionEvent event)
+	public boolean onTouchEvent(MotionEvent event)
 	{
 		// TODO: Implement this method
 		int actionMask=event.getAction();
