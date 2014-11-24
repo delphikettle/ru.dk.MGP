@@ -70,6 +70,54 @@ public abstract class Level extends View
 		}
 		return f;
 	}
+
+	float getAverageLastX(PointerCoordinate[] pointers){
+		float sum=0;
+		int n=0;
+		for(int i=0;i<pointers.length;i++)
+			if(pointers[i].active){
+				n++;
+				sum+=pointers[i].lastx;
+			}
+		if(n>0)return (sum/n); else return -1;
+	}
+	float getAverageX(PointerCoordinate[] pointers){
+		float sum=0;
+		int n=0;
+		for(int i=0;i<pointers.length;i++)
+			if(pointers[i].active){
+				n++;
+				sum+=pointers[i].x;
+			}
+		if(n>0)return (sum/n); else return -1;
+	}
+	float getAverageLastY(PointerCoordinate[] pointers){
+		float sum=0;
+		int n=0;
+		for(int i=0;i<pointers.length;i++)
+			if(pointers[i].active){
+				n++;
+				sum+=pointers[i].lasty;
+			}
+		if(n>0)return (sum/n); else return -1;
+	}
+	float getAverageY(PointerCoordinate[] pointers){
+		float sum=0;
+		int n=0;
+		for(int i=0;i<pointers.length;i++)
+			if(pointers[i].active){
+				n++;
+				sum+=pointers[i].y;
+			}
+		if(n>0)return (sum/n); else return -1;
+	}
+	
+	void onTouchLevel(PointerCoordinate[] pointers,int index){
+		if(pointers[index].active){
+			this.setXShift((this.getXShift()*this.getScale()+ getAverageX(pointers) - getAverageLastX(pointers))/this.getScale());
+			this.setYShift((this.getYShift()*this.getScale()+ getAverageY(pointers) - getAverageLastY(pointers))/this.getScale());
+		}
+	}
 	
 	public int getW(){
 		return this.w;

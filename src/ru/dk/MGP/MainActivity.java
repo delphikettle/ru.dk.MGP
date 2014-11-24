@@ -10,8 +10,9 @@ import android.view.ViewGroup.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
 import ru.dk.MGP.Levels.*;
+import android.util.*;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements OnTouchListener
 {
 	//int ni=0;
 	MoveThread mt;
@@ -69,6 +70,8 @@ public class MainActivity extends Activity
 //	thislevel.setX(0);
 		//thislevel.setY(0);
         //setContentView(R.layout.main);
+		for(int i=0;i<10;i++)pointers[i]=new PointerCoordinate(i);
+		thislevel.setOnTouchListener(this);
     }
 	
 	
@@ -103,12 +106,74 @@ public class MainActivity extends Activity
 		
 	}
 
-	float motionx,motiony;
+	PointerCoordinate[] pointers=new PointerCoordinate[10];
+	
+//	public class PointerCoordinate{boolean active;
+//		float x,y,lastx,lasty;
+//		int id;
+//		PointerCoordinate(int id){
+//			active=false;
+//			this.id=id;
+//			lastx=x=lasty=y=-1;
+//		}
+//		void Down(float x, float y){
+//			active=true;
+//			this.lastx=this.x=x;
+//			this.lasty=this.y=y;
+//			Log.i("PointerCoordinate","Down: "+this);
+//		}
+//		PointerCoordinate Move(float x, float y){
+//			this.lastx=this.x;
+//			this.lasty=this.y;
+//			this.x=x;
+//			this.y=y;
+//			Log.i("PointerCoordinate","Move: "+this);
+//			return this;
+//		}
+//		
+//		void Up(){
+//			active=false;
+//			Log.i("PointerCoordinate","Up  : "+this);
+//		}
+//
+//		@Override
+//		public String toString()
+//		{
+//			// TODO: Implement this method
+//			return "id:"+this.id+", active:"+this.active+", lastx:"+this.lastx+", lasty:"+this.lasty+", x:"+this.x+", y:"+this.y;
+//		}
+//		
+//		
+//	}
+//	
 	@Override
-	public boolean onTouchEvent(MotionEvent event)
+	public boolean onTouch(View v,MotionEvent event)
 	{
 		// TODO: Implement this method
-
+		int actionMask=event.getAction();
+		int actionPointer=event.getPointerId(event.getActionIndex());
+		actionPointer=event.getActionIndex();
+		int pointerCount=event.getPointerCount();
+		switch(actionMask){
+			case MotionEvent.ACTION_DOWN:
+				pointers[0].Down(event.getX(),event.getY());
+				break;
+			case MotionEvent.ACTION_POINTER_DOWN:
+				pointers[actionPointer].Down(event.getX(),event.getY());
+				break;
+			case MotionEvent.ACTION_MOVE:
+				pointers[actionPointer].Move(event.getX(),event.getY());
+				thislevel.onTouchLevel(pointers,actionPointer);
+				break;
+			case MotionEvent.ACTION_POINTER_UP:
+			case MotionEvent.ACTION_CANCEL:
+				pointers[actionPointer].Up();
+				break;
+			case MotionEvent.ACTION_UP:
+				for(int i=0;i<10;i++)if(pointers[i].active)pointers[i].Up();
+		}
+		//Log.i("onTouchEvent",actionMask+""+actionPointer+""+pointerCount+"");
+/*
 		switch(event.getActionMasked()){
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_POINTER_DOWN:	
@@ -124,6 +189,8 @@ public class MainActivity extends Activity
 				thislevel.setYShift((thislevel.getYShift()*thislevel.getScale()+event.getY()-motiony)/thislevel.getScale());
 				motiony=event.getY();
 		}
+		*/
+		
 		return super.onTouchEvent(event);
 	}
 	
