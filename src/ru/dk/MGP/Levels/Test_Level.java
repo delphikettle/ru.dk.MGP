@@ -9,6 +9,15 @@ public class Test_Level extends Level
 {
 
 	@Override
+	public Task setTask()
+	{
+		// TODO: Implement this method
+		Task t=new Task.TaskOnCount(100,(byte)1);
+		return null;
+	}
+
+
+	@Override
 	public Background newBackground()
 	{
 		// TODO: Implement this method

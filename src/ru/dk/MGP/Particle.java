@@ -15,6 +15,7 @@ public class Particle
 	float r;//radius
 	float q;//particle charge
 	static public Particle[] particles;
+	static int count;
 	static int n_max;//the biggest amount of particles
 	static int x_min, y_min, x_max, y_max;//borders
 	static float G=1;//const G
@@ -35,6 +36,7 @@ public class Particle
 		
 		for(int i=0;i<Particle.particles.length;i++)
 			Particle.particles[i]=null;
+		count=0;
 		n_max=0;
 		x_min=0;
 		y_min=0;
@@ -101,6 +103,7 @@ public class Particle
 		this.ay=0;
 		this.m=m_;
 		this.q=q_;
+		count++;
 		this.r=(float)Math.sqrt(m/Math.PI);
 		int i=0;
 		while(particles[i]!=null)
@@ -132,6 +135,11 @@ public class Particle
 		//MainActivity.thisis.ShowToast(""+this.n);*/
 	}
 
+	public void Delete(int number){
+		Particle.particles[number]=null;
+		count--;
+	}
+	
 	@Override
 	public String toString()
 	{

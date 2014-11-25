@@ -22,6 +22,7 @@ public abstract class Level extends View
 	boolean is_gamer_needed;
 	MoveThread mt;
 	Background background;
+	Task task;
 	//private FrameLayout.LayoutParams params;
 	//private final Activity activity;
 	
@@ -61,6 +62,7 @@ public abstract class Level extends View
 		mt.Resume();
 		invalidate();
 	}
+	public abstract Task setTask();
 	public abstract Background newBackground();
 	public abstract void Init();
 	public boolean Review(){
