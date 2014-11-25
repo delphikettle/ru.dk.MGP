@@ -15,7 +15,7 @@ public class Particle
 	float r;//radius
 	float q;//particle charge
 	static public Particle[] particles;
-	static int count;
+	public static int count;
 	static int n_max;//the biggest amount of particles
 	static int x_min, y_min, x_max, y_max;//borders
 	static float G=1;//const G
@@ -135,7 +135,7 @@ public class Particle
 		//MainActivity.thisis.ShowToast(""+this.n);*/
 	}
 
-	public void Delete(int number){
+	static public void Delete(int number){
 		Particle.particles[number]=null;
 		count--;
 	}
@@ -334,7 +334,7 @@ public class Particle
 			//to.color=(int)((to.color*to.m+from.color*mass)/(to.m+mass));
 			to.m=to.m+mass;
 			from.m=from.m-mass;
-			if(from.m<1)Particle.particles[from.n]=null; else
+			if(from.m<1)Particle.Delete(from.n); else
 				from.r=(float)Math.sqrt(from.m/Math.PI);
 			to.r=(float)Math.sqrt(to.m/Math.PI);
 			//log=log+"\nAfter:from:"+from.toString()+"\nto:"+to.toString();

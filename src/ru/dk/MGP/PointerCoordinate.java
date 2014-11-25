@@ -13,20 +13,20 @@ public class PointerCoordinate{
 		active=true;
 		this.lastx=this.x=x;
 		this.lasty=this.y=y;
-		Log.i("PointerCoordinate","Down: "+this);
+		//Log.i("PointerCoordinate","Down: "+this);
 	}
 	PointerCoordinate Move(float x, float y){
 		this.lastx=this.x;
 		this.lasty=this.y;
 		this.x=x;
 		this.y=y;
-		Log.i("PointerCoordinate","Move: "+this);
+		//Log.i("PointerCoordinate","Move: "+this);
 		return this;
 	}
 
 	void Up(){
 		active=false;
-		Log.i("PointerCoordinate","Up  : "+this);
+		//Log.i("PointerCoordinate","Up  : "+this);
 	}
 
 	@Override

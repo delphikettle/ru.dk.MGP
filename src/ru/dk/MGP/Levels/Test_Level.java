@@ -1,8 +1,11 @@
 package ru.dk.MGP.Levels;
-import ru.dk.MGP.*;
-import android.content.*;
 import android.app.*;
+import android.content.*;
 import java.util.*;
+import ru.dk.MGP.*;
+import ru.dk.MGP.Tasks.*;
+import org.apache.commons.logging.*;
+import android.util.*;
 
 
 public class Test_Level extends Level
@@ -11,9 +14,10 @@ public class Test_Level extends Level
 	@Override
 	public Task setTask()
 	{
-		// TODO: Implement this method
-		Task t=new Task.TaskOnCount(100,(byte)1);
-		return null;
+//		// TODO: Implement this method
+		Task[] t={new TaskOnCount(100,TaskOnCount.T_Smaller), new TaskOnCount(120,TaskOnCount.T_Bigger)};
+		return new TaskCombine(t,TaskCombine.TC_OR);
+		//return t[0];
 	}
 
 
@@ -43,7 +47,7 @@ public class Test_Level extends Level
 		this.setXMax(this.getXMax()*4);
 		this.setYMax(this.getYMax()*4);
 		Particle.setG(-32*2);
-		Particle.timefactor=1f;
+		Particle.timefactor=2*1f;
 		//for(int i=0;i<3;i++)
 		//new Particle(rnd.nextDouble()*1024/this.getScale(),rnd.nextDouble()*812/this.getScale(),Math.random()*100-50,Math.random()*100-50,rnd.nextInt(2048*32)+1024, -2);
 		//new Particle(rnd.nextDouble()*1024/this.getScale(),rnd.nextDouble()*812/this.getScale(),Math.random()*100-50,Math.random()*100-50,rnd.nextInt(2048*32)+1024, 2);
@@ -53,7 +57,7 @@ public class Test_Level extends Level
 		//new Particle(0,0,0,0,1024*4*16,2);
 		//new Particle(500/2,500/2,0,0,512,-2);
 		new Particle((rnd.nextFloat()*1920*1-0*1920)/this.getScale(),(rnd.nextFloat()*1024*1-0*1024)/this.getScale(),(float)Math.random()*100-50,(float)Math.random()*100-50,((1024*64)),2*((float)( rnd.nextDouble()*8-4)));
-		for(int i=0;i<0.5*1024;i++)
+		for(int i=0;i<110;i++)
 			new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2)+getXMin()+100*2,rnd.nextFloat()*(getYMax()-getYMin()-200*2)+getYMin()+100*2,(float)Math.random()*100/2-50/2,(float)Math.random()*100/2-50/2,(rnd.nextInt(1024*4)+32),(float)( rnd.nextDouble()*8-4));
 		//new Particle((rnd.nextFloat()*1920*1-0*1920)/this.getScale(),(rnd.nextFloat()*1024*1-0*1024)/this.getScale(),((float)Math.random()*1000-500)/16,((float)Math.random()*1000-500)/16,(rnd.nextInt(1024*4)+2048),(float)( rnd.nextDouble()*8-4));
 	}
@@ -62,6 +66,8 @@ public class Test_Level extends Level
 	public boolean Review()
 	{
 		// TODO: Implement this method
+		if(super.Review()) MainActivity.thisis.finish();
+		android.util.Log.i("Review",super.Review()+"");
 		return super.Review();
 	}
 

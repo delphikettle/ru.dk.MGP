@@ -14,11 +14,11 @@ public abstract class Level extends View
 	int type;
 	int w,h;
 	float x_shift,y_shift,scale;
-	Task[] tasks;
+	//Task[] tasks;
 	//public static Level thislevel;
-	public final int
-		T_GETCHARGE=1
-		;
+	//public final int
+	//	T_GETCHARGE=1
+	//	;
 	boolean is_gamer_needed;
 	MoveThread mt;
 	Background background;
@@ -51,7 +51,7 @@ public abstract class Level extends View
 		ViewGroup root = (ViewGroup) activity.findViewById(android.R.id.content);
 		root.addView(this, params);
 		*/
-		tasks=new Task[1];
+		task=setTask();
 		background=newBackground(); 
 		background.setX(0);
 		background.setY(0);
@@ -66,11 +66,11 @@ public abstract class Level extends View
 	public abstract Background newBackground();
 	public abstract void Init();
 	public boolean Review(){
-		boolean f=true;
-		for(int i=0;i<tasks.length;i++) {
-			if(tasks[i]!=null)if(!tasks[i].is_ended())f=false;
-		}
-		return f;
+//		boolean f=true;
+//		for(int i=0;i<tasks.length;i++) {
+//			if(tasks[i]!=null)if(!tasks[i].is_ended())f=false;
+//		}
+		return task.is_ended();
 	}
 
 	float getAverageLastX(PointerCoordinate[] pointers){
