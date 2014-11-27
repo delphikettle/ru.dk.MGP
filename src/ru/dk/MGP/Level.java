@@ -23,6 +23,7 @@ public abstract class Level extends View
 	MoveThread mt;
 	Background background;
 	Task task;
+	int mainID;
 	//private FrameLayout.LayoutParams params;
 	//private final Activity activity;
 	
@@ -36,6 +37,7 @@ public abstract class Level extends View
 		x_shift=0;
 		y_shift=0;
 		scale=1;
+		mainID=0;
 		Particle.Init(w,h);
 		this.setXMin(Particle.getXMin());
 		this.setXMax(Particle.getXMax());
@@ -214,6 +216,22 @@ public abstract class Level extends View
 	{
 		return y_min;
 	}
+	
+	protected void DrawMainParticle(Canvas canvas, Particle p)
+	{
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setStrokeWidth(p.r*0.05f*scale);
+		if(p.q>=0.0)paint.setShadowLayer((p.q*p.r*scale*0.05f),0,0,Color.argb(255,255,0,0));
+		if(p.q<=-0.0)paint.setShadowLayer((-p.q*p.r*scale*0.05f),0,0,Color.argb(255,0,0,255));
+		paint.setColor(Color.argb(255,255,255,255));
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.8f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.6f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.4f,paint);
+		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.2f,paint);
+		paint.setStyle(Paint.Style.FILL);
+	}
+	
 	@Override
 	protected void onDraw(Canvas canvas)
 	{
@@ -240,8 +258,9 @@ public abstract class Level extends View
 				canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale,paint);
 				//paint.setARGB(255,0,0,0);
 				//canvas.drawText(""+Math.round(p.q*100)/100.0,(float)p.x,(float)p.y,paint);
+				if(p.id==mainID)DrawMainParticle(canvas,p);
 			}
-
+		/*
 		p=Particle.particles[0];
 		if(p.q>=0.0)paint.setShadowLayer((p.q*p.r*scale/5.0f),0,0,Color.argb(255,255,0,0));
 		//if(p.q>-0.0125&&p.q<0.0125)paint.setShadowLayer((float)Math.abs(p.q*p.r*scale/5.0f),0,0,Color.argb(255,0,0,0));
@@ -253,6 +272,7 @@ public abstract class Level extends View
 		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.6f,paint);
 		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.4f,paint);
 		canvas.drawCircle((p.x+x_shift)*scale,(p.y+y_shift)*scale,p.r*scale*0.2f,paint);
+		*/
 		
 		this.Review();
 			

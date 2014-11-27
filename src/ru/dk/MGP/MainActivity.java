@@ -153,25 +153,26 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
 		// TODO: Implement this method
 		int actionMask=event.getAction();
-		int actionPointer=event.getPointerId(event.getActionIndex());
-		actionPointer=event.getActionIndex();
+		int actionPointer=event.getActionIndex();
 		int pointerCount=event.getPointerCount();
 		switch(actionMask){
+//			case MotionEvent.ACTION_DOWN:
+//				pointers[0].Down(event.getX(),event.getY());
+//				break;
 			case MotionEvent.ACTION_DOWN:
-				pointers[0].Down(event.getX(),event.getY());
-				break;
 			case MotionEvent.ACTION_POINTER_DOWN:
-				pointers[actionPointer].Down(event.getX(),event.getY());
+				pointers[event.getPointerId(actionPointer)].Down(event.getX(actionPointer),event.getY(actionPointer));
 				break;
 			case MotionEvent.ACTION_MOVE:
-				pointers[actionPointer].Move(event.getX(),event.getY());
+				for(int i=0;i<pointerCount;i++)
+					pointers[event.getPointerId(i)].Move(event.getX(i),event.getY(i));
 				thislevel.onTouchLevel(pointers,actionPointer);
 				break;
 			case MotionEvent.ACTION_POINTER_UP:
-			case MotionEvent.ACTION_CANCEL:
-				pointers[actionPointer].Up();
+				pointers[event.getPointerId(actionPointer)].Up();
 				break;
 			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_CANCEL:
 				for(int i=0;i<10;i++)if(pointers[i].active)pointers[i].Up();
 		}
 		//Log.i("onTouchEvent",actionMask+""+actionPointer+""+pointerCount+"");

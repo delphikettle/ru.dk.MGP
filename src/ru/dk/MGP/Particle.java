@@ -22,6 +22,9 @@ public class Particle
 	//static double timefactor=1;
 	//FloatingParticle circle;
 	int color;
+	int id;
+	private static int max_id;
+	
 	
 	public static final double
 		Q_POSITIVE=1.0,
@@ -42,6 +45,7 @@ public class Particle
 		y_min=0;
 		x_max=w;
 		y_max=h;
+		max_id=-1;
 	}
 	
 	static public float setG(float newG)
@@ -111,6 +115,7 @@ public class Particle
 		particles[i]=this;
 		if(i>n_max)n_max=i;
 		this.n=i;
+		this.id=++max_id;
 		Random rnd= new Random();
 		this.color=Color.argb(128,rnd.nextInt(128+64)+128-64,rnd.nextInt(128+64)+128-64,rnd.nextInt(128+64)+128-64/*0,255,0*/);
 		//this.color=Color.argb(128*2-1,255,255,255);
