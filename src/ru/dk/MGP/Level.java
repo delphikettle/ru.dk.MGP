@@ -149,8 +149,8 @@ public abstract class Level extends View
 			this.setYShift((this.getYShift()*this.getScale()+ getAverageY(pointers) - getAverageLastY(pointers))/this.getScale());
 			
 			//scaling
-			setXShift(getXShift()*getScaleChange(pointers));
-			setYShift(getYShift()*getScaleChange(pointers));
+			setXShift(getXShift()+getW() *( getScale()-getScaleChange(pointers)* getScale()));
+			setYShift(getYShift()+ getH()*( getScale()-getScaleChange(pointers)* getScale()));
 			setScale(getScale()*getScaleChange(pointers),true);
 		}
 	}
@@ -178,7 +178,7 @@ public abstract class Level extends View
 		invalidate();
 		//if(this.scale-newscale>0.001f)this.setScale(newscale+0.001f);
 		//if(this.scale-newscale<-0.005f)this.setScale(newscale-0.001f);
-		return this.scale=(newscale>=0.001f)?(newscale):0.001f;
+		return this.scale=(newscale>=0.05f)?((newscale<=1f)?(newscale):1f):0.05f;
 	}
 
 	public float setXShift(float newXShift)
@@ -271,8 +271,8 @@ public abstract class Level extends View
 		super.onDraw(canvas);
 		paint.setARGB(255,0,255,0);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(16*scale);
-		paint.setShadowLayer(64*scale,0,0,Color.argb(255,0,255,0));
+		paint.setStrokeWidth(16*8*scale);
+		paint.setShadowLayer(64*8*scale,0,0,Color.argb(255,0,255,0));
 		canvas.drawRect((x_min+x_shift-16)*scale,(y_min+y_shift-16)*scale,(x_max+x_shift+16)*scale,(y_max+y_shift+16)*scale,paint);
 		paint.setStyle(Paint.Style.FILL);
 		Particle p=Particle.particles[0];
