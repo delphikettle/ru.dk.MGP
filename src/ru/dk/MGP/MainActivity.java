@@ -152,7 +152,7 @@ public class MainActivity extends Activity //implements OnTouchListener
 	public boolean onTouchEvent(MotionEvent event)
 	{
 		// TODO: Implement this method
-		int actionMask=event.getAction();
+		int actionMask=event.getActionMasked();
 		int actionPointer=event.getActionIndex();
 		int pointerCount=event.getPointerCount();
 		switch(actionMask){
@@ -166,7 +166,7 @@ public class MainActivity extends Activity //implements OnTouchListener
 			case MotionEvent.ACTION_MOVE:
 				for(int i=0;i<pointerCount;i++)
 					pointers[event.getPointerId(i)].Move(event.getX(i),event.getY(i));
-				thislevel.onTouchLevel(pointers,actionPointer);
+				thislevel.onTouchLevel(pointers,event.getPointerId(actionPointer));
 				break;
 			case MotionEvent.ACTION_POINTER_UP:
 				pointers[event.getPointerId(actionPointer)].Up();

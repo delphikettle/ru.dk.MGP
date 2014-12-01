@@ -116,10 +116,42 @@ public abstract class Level extends View
 		if(n>0)return (sum/n); else return -1;
 	}
 	
+	private float getDistance(float x1,float y1,float x2,float y2){
+		return (float)(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(x2-x1,2)));
+	}
+	
+	float getScaleChange(PointerCoordinate[] pointers){
+		float d=1;
+		int n=0;
+		float lasts=0;
+		for(int i=0;i<pointers.length;i++)
+			for(int j=i+1;j<pointers.length;j++)
+				if(pointers[i].active&&pointers[j].active)
+				{
+					n++;
+					lasts+=getDistance(pointers[i].lastx,pointers[i].lasty,pointers[j].lastx,pointers[j].lasty);
+				}
+		float s=0;
+		for(int i=0;i<pointers.length;i++)
+			for(int j=i+1;j<pointers.length;j++)
+				if(pointers[i].active&&pointers[j].active)
+					s+=getDistance(pointers[i].x,pointers[i].y,pointers[j].x,pointers[j].y);
+		
+		if(n>0)
+			d=1/(lasts/s);		
+		return d;
+	}
+	
 	void onTouchLevel(PointerCoordinate[] pointers,int index){
-		if(pointers[index].active){
+		//if(pointers[index].active)
+		{
 			this.setXShift((this.getXShift()*this.getScale()+ getAverageX(pointers) - getAverageLastX(pointers))/this.getScale());
 			this.setYShift((this.getYShift()*this.getScale()+ getAverageY(pointers) - getAverageLastY(pointers))/this.getScale());
+			
+			//scaling
+			setXShift(getXShift()*getScaleChange(pointers));
+			setYShift(getYShift()*getScaleChange(pointers));
+			setScale(getScale()*getScaleChange(pointers),true);
 		}
 	}
 	
@@ -240,7 +272,7 @@ public abstract class Level extends View
 		paint.setARGB(255,0,255,0);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(16*scale);
-		paint.setShadowLayer(16,0,0,Color.argb(255,0,255,0));
+		paint.setShadowLayer(64*scale,0,0,Color.argb(255,0,255,0));
 		canvas.drawRect((x_min+x_shift-16)*scale,(y_min+y_shift-16)*scale,(x_max+x_shift+16)*scale,(y_max+y_shift+16)*scale,paint);
 		paint.setStyle(Paint.Style.FILL);
 		Particle p=Particle.particles[0];

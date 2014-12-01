@@ -21,13 +21,13 @@ public class PointerCoordinate{
 		this.x=x;
 		this.y=y;
 		Log.i("PointerCoordinate","Move: "+this);
-		if(this.x!=-1&&this.y!=-1)active=true;
+		//if(this.x!=-1&&this.y!=-1)active=true;
 		return this;
 	}
 
 	void Up(){
 		active=false;
-		lastx=x=lasty=y=-1;
+		//lastx=x=lasty=y=-1;
 		Log.i("PointerCoordinate","Up  : "+this);
 	}
 
