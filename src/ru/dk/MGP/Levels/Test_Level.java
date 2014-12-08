@@ -16,7 +16,7 @@ public class Test_Level extends Level
 	{
 //		// TODO: Implement this method
 		Task[] t={new TaskOnCount(50,TaskOnCount.T_Smaller), new TaskOnCount(112,TaskOnCount.T_Bigger)};
-		return new TaskCombine(t,TaskCombine.TC_OR);
+		return new TaskCombine(new Task[] {t[0],t[1],new TaskOnCount(50, TaskOnCount.T_Average)},TaskCombine.TC_OR);
 		//return t[0];
 	}
 
@@ -42,12 +42,14 @@ public class Test_Level extends Level
 		//this.setXShift(50);
 		//this.setYShift(50);
 
-		this.setXMin(-this.getXMax()*2);
-		this.setYMin(-this.getYMax()*2);
-		this.setXMax(this.getXMax()*3);
-		this.setYMax(this.getYMax()*3);
+		this.setXMin(-this.getXMax());
+		this.setYMin(-this.getYMax());
+		this.setXMax(this.getXMax());
+		this.setYMax(this.getYMax());
+		this.setXShift(-getXMin());
+		this.setYShift(-getYMin());
 		Particle.setG(-8*16*4);
-		Particle.timefactor=1f;
+		Particle.timefactor=0.35f;
 		//for(int i=0;i<3;i++)
 		//new Particle(rnd.nextDouble()*1024/this.getScale(),rnd.nextDouble()*812/this.getScale(),Math.random()*100-50,Math.random()*100-50,rnd.nextInt(2048*32)+1024, -2);
 		//new Particle(rnd.nextDouble()*1024/this.getScale(),rnd.nextDouble()*812/this.getScale(),Math.random()*100-50,Math.random()*100-50,rnd.nextInt(2048*32)+1024, 2);
@@ -56,9 +58,9 @@ public class Test_Level extends Level
 		//new Particle(500,100,0,15,2500*Math.PI,-2);
 		//new Particle(0,0,0,0,1024*4*16,2);
 		//new Particle(500/2,500/2,0,0,512,-2);
-		new Particle((rnd.nextFloat()*1920*1-0*1920)/this.getScale(),(rnd.nextFloat()*1024*1-0*1024)/this.getScale(),(float)Math.random()*100-50,(float)Math.random()*100-50,((1024*16)),2*((float)(4*( rnd.nextDouble()*8-4))));
+		new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100-50,(float)Math.random()*100-50,((1024*8)),2*((float)(4*( rnd.nextDouble()*8-4))));
 		for(int i=0;i<400;i++)
-			new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100/2-50/2,(float)Math.random()*100/2-50/2,(rnd.nextInt(1024*4)+32),(float)( rnd.nextDouble()*8-4));
+			new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100/2-50/2,(float)Math.random()*100/2-50/2,(rnd.nextInt(1024*2)+32),(float)( rnd.nextDouble()*8-4));
 		//new Particle((rnd.nextFloat()*1920*1-0*1920)/this.getScale(),(rnd.nextFloat()*1024*1-0*1024)/this.getScale(),((float)Math.random()*1000-500)/16,((float)Math.random()*1000-500)/16,(rnd.nextInt(1024*4)+2048),(float)( rnd.nextDouble()*8-4));
 	}
 

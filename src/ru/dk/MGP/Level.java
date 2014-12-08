@@ -117,7 +117,7 @@ public abstract class Level extends View
 	}
 	
 	private float getDistance(float x1,float y1,float x2,float y2){
-		return (float)(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(x2-x1,2)));
+		return (float)(Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2)));
 	}
 	
 	float getScaleChange(PointerCoordinate[] pointers){
@@ -149,9 +149,12 @@ public abstract class Level extends View
 			this.setYShift((this.getYShift()*this.getScale()+ getAverageY(pointers) - getAverageLastY(pointers))/this.getScale());
 			
 			//scaling
-			setXShift(getXShift()+getW() *( getScale()-getScaleChange(pointers)* getScale()));
-			setYShift(getYShift()+ getH()*( getScale()-getScaleChange(pointers)* getScale()));
-			setScale(getScale()*getScaleChange(pointers),true);
+			//setXShift(getXShift()+getW() *( getScale()-getScaleChange(pointers)* getScale()));
+			//setYShift(getYShift()+ getH()*( getScale()-getScaleChange(pointers)* getScale()));
+			float oldScale=getScale();
+			float newScale = setScale(getScale()*getScaleChange(pointers),true);
+			setXShift(getXShift()*(oldScale/newScale));
+			setYShift(getYShift()*(oldScale/newScale));
 		}
 	}
 	

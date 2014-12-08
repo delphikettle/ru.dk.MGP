@@ -1,10 +1,9 @@
 package ru.dk.MGP.Tasks;
 
 import ru.dk.MGP.*;
-
-public 
+ 
 //Count
-class TaskOnCount extends Task
+public class TaskOnCount extends Task
 {
 	public static final byte T_Bigger=0,T_Smaller=1,T_Average=2;
 	byte type;
