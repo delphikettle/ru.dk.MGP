@@ -48,6 +48,14 @@ public class Particle
 		max_id=-1;
 	}
 	
+	static public Particle findParticleByID(int ID){
+		for(int i=0;i<n_max;i++)
+			if(particles[i]!=null)
+				if(particles[i].id==ID)
+					return particles[i];
+		return null;
+	}
+	
 	static public float setG(float newG)
 	{
 		return G=(newG>=0?newG:newG);
@@ -457,6 +465,20 @@ public class Particle
 		}
 		
 		return f;
+	}
+	
+	public Particle  separate(float m_,float vx_,float vy_/*coordinates of vector of new Particle*/){
+		float x = 0,y = 0,vx = 0,vy = 0,m = (m_>=this.m)?this.m:m_,q = this.q;
+		/*
+		x=
+		y=
+		vx=vx_+
+		vy=vy_+
+		this.vx=-m*vx_/this.m+this.vx
+		this.vy=-m*vy_/this.m+this.vy
+		*/
+		Particle p = new Particle(x,y,vx,vy,m,q);
+		return p;
 	}
 	
 	public void Change(int time/*in milliseconds*/)

@@ -1,16 +1,12 @@
 package ru.dk.MGP;
 
+import android.*;
 import android.app.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
-import java.sql.*;
-import android.view.ViewGroup.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
 import ru.dk.MGP.Levels.*;
-import android.util.*;
 
 public class MainActivity extends Activity //implements OnTouchListener
 {
@@ -93,7 +89,8 @@ public class MainActivity extends Activity //implements OnTouchListener
 	//	draw();
 		Random rnd=new Random();
 		//new Particle(rnd.nextDouble()*w,rnd.nextDouble()*h,0,0,rnd.nextInt(2048*32/2)+1024*4, Math.random()*4-2);
-		new Particle(rnd.nextFloat()*w/thislevel.getScale(),rnd.nextFloat()*h/thislevel.getScale(),(float)(Math.random()*10-5),(float)(Math.random()*10-5),rnd.nextInt(2048)+1024, rnd.nextInt(9)-4);
+		new Particle(rnd.nextFloat()*(thislevel.getXMax()-thislevel.getXMin()-200*2*4)+thislevel.getXMin()+100*2*4,rnd.nextFloat()*(thislevel.getYMax()-thislevel.getYMin()-200*2*4)+thislevel.getYMin()+100*4*2,(float)Math.random()*100/2-50/2,(float)Math.random()*100/2-50/2,(rnd.nextInt(1024*2)+32)*4,(float)( rnd.nextDouble()*8-4));
+		//new Particle(rnd.nextFloat()*w/thislevel.getScale(),rnd.nextFloat()*h/thislevel.getScale(),(float)(Math.random()*10-5),(float)(Math.random()*10-5),rnd.nextInt(2048)+1024, rnd.nextInt(9)-4);
 		//new Particle(100,100,0,0,Math.PI*10000, 0);
 		//MoveThread.is_move=true;
 		//ShowToast(""+Particle.particles[0].vx+" "+Particle.particles[0].vy+"\n"+Particle.particles[1].vx+" "+Particle.particles[1].vy+"\n\n"+Particle.particles[0].r+" "+Particle.particles[0].r);

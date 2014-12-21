@@ -3,11 +3,11 @@ import android.app.*;
 import android.content.*;
 import android.graphics.*;
 import android.view.*;
+import android.view.View.*;
 import android.widget.*;
-import java.util.*;
 
 
-public abstract class Level extends View
+public abstract class Level extends View implements OnClickListener
 {
 	String name;
 	int x_min,y_min,x_max,y_max;
@@ -153,8 +153,12 @@ public abstract class Level extends View
 			//setYShift(getYShift()+ getH()*( getScale()-getScaleChange(pointers)* getScale()));
 			float oldScale=getScale();
 			float newScale = setScale(getScale()*getScaleChange(pointers),true);
-			setXShift(getXShift()*(oldScale/newScale));
-			setYShift(getYShift()*(oldScale/newScale));
+			if(oldScale!=newScale)
+			{
+				//setXShift(getXShift()*(oldScale/newScale)+((getXShift()+getAverageX(pointers))*oldScale-getW()*newScale)/newScale);
+				setXShift(((getXShift())*oldScale)/newScale);
+				setYShift(((getYShift())*oldScale)/newScale);
+			}
 		}
 	}
 	
@@ -333,6 +337,14 @@ public abstract class Level extends View
 //		return super.onTouchEvent(event);
 //	}
 
+
+	@Override
+	public void onClick(View p1)
+	{
+		// TODO: Implement this method
+		
+
+	}
 
 	
 	
