@@ -467,16 +467,17 @@ public class Particle
 		return f;
 	}
 	
-	public Particle  separate(float m_,float vx_,float vy_/*coordinates of vector of new Particle*/){
-		float x = 0,y = 0,vx = 0,vy = 0,m = (m_>=this.m)?this.m:m_,q = this.q;
-		/*
-		x=
-		y=
-		vx=vx_+
-		vy=vy_+
-		this.vx=-m*vx_/this.m+this.vx
-		this.vy=-m*vy_/this.m+this.vy
-		*/
+	public Particle  separate(float m_,float vx_,float vy_/*coordinates of speed vector of new Particle*/){
+		float x = 0,y = 0,vx = 0,vy = 0,m = (m_>=this.m)?this.m:m_,q = this.q, r=(float)Math.sqrt(m/Math.PI);
+		x=(float)(vx_*(this.r+r)/Math.sqrt(vx_*vx_+vy_*vy_)+this.x);
+		
+		y=(float)(Math.sqrt(-Math.pow(x-this.x,2)+Math.pow(this.r+r,2))+vy_);
+		
+		vx=vx_+this.vx;
+		vy=vy_+this.vy;
+		this.vx=-m*vx_/this.m+this.vx;
+		this.vy=-m*vy_/this.m+this.vy;
+		
 		Particle p = new Particle(x,y,vx,vy,m,q);
 		return p;
 	}
