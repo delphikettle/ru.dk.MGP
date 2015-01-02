@@ -7,13 +7,13 @@
 	android:alpha="1.0"
 	android:orientation="vertical">
 
-
 	<Button
 		android:layout_height="wrap_content"
 		android:text="@string/button1"
 		android:layout_width="wrap_content"
 		android:onClick="OnB1Click"
-		android:alpha="1.0"/>
+		android:alpha="1.0"
+		android:gravity="top|left"/>
 
 </LinearLayout>
 

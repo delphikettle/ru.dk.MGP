@@ -7,6 +7,7 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import ru.dk.MGP.Levels.*;
+import android.util.*;
 
 public class MainActivity extends Activity //implements OnTouchListener
 {
@@ -170,7 +171,14 @@ public class MainActivity extends Activity //implements OnTouchListener
 				break;
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
-				for(int i=0;i<10;i++)if(pointers[i].active)pointers[i].Up();
+				for(int i=0;i<10;i++)if(pointers[i].active){
+						if(pointers[i].x==pointers[i].firstx&&pointers[i].y==pointers[i].firsty)
+						{
+							thislevel.separateMainParticle((pointers[i].firstx)/thislevel.getScale()-thislevel.getXShift(),(pointers[i].firsty)/thislevel.getScale()-thislevel.getYShift());
+							Log.i("separate",pointers[i].firstx+" "+pointers[i].firsty);
+						}
+						pointers[i].Up();
+				}
 		}
 		//Log.i("onTouchEvent",actionMask+""+actionPointer+""+pointerCount+"");
 /*

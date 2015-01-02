@@ -5,9 +5,10 @@ import android.graphics.*;
 import android.view.*;
 import android.view.View.*;
 import android.widget.*;
+import android.util.*;
 
 
-public abstract class Level extends View implements OnClickListener
+public abstract class Level extends View //implements OnClickListener
 {
 	String name;
 	int x_min,y_min,x_max,y_max;
@@ -62,6 +63,7 @@ public abstract class Level extends View implements OnClickListener
 		mt.setDaemon(true);
 		mt.start();
 		mt.Resume();
+		//this.setOnClickListener(this);
 		invalidate();
 	}
 	public abstract Task setTask();
@@ -338,11 +340,25 @@ public abstract class Level extends View implements OnClickListener
 //	}
 
 
-	@Override
-	public void onClick(View p1)
+	//@Override
+	//public void onClick(View p1)
+	public void separateMainParticle(float x,float y)
 	{
 		// TODO: Implement this method
-		
+		float v=1000;
+		if (Particle.particles[0]!=null){
+			Particle p= Particle.particles[0];
+			float vy;
+			if(y>p.y)vy=(float) ((y-p.y)*v/Math.sqrt(Math.pow((y-p.y),2)+Math.pow((x-p.x),2))); else
+				vy=(float) ((y-p.y)*v/Math.sqrt(Math.pow((y-p.y),2)+Math.pow((x-p.x),2)));
+			float vx;
+			if(x>p.x){
+				vx=(float) Math.sqrt(v*v-vy*vy);} else
+				{vx=-(float) Math.sqrt(v*v-vy*vy);}
+			Log.i("separateMainParticle",vx+" "+vy);
+			Particle.particles[0].separate(Particle.particles[0].m*0.01f,vx,vy);
+			}
+		Log.i("click",v+"");
 
 	}
 

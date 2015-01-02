@@ -438,28 +438,28 @@ public class Particle
 		
 		//left
 		if(this.x-this.r<=getXMin()){
-			this.vx=-this.vx;
+			this.vx=-this.vx*0.99f;
 			this.x=getXMin()+this.r+1;
 			f=true;
 		}
 		
 		//right
 		if(this.x+this.r>=getXMax()){
-			this.vx=-this.vx;
+			this.vx=-this.vx*0.99f;
 			this.x=getXMax()-this.r-1;
 			f=true;
 		}
 		
 		//top
 		if(this.y-this.r<=getYMin()){
-			this.vy=-this.vy;
+			this.vy=-this.vy*0.99f;
 			this.y=getYMin()+this.r+1;
 			f=true;
 		}
 
 		//bottom
 		if(this.y+this.r>=getYMax()){
-			this.vy=-this.vy;
+			this.vy=-this.vy*0.99f;
 			this.y=getYMax()-this.r-1;
 			f=true;
 		}
@@ -469,15 +469,19 @@ public class Particle
 	
 	public Particle  separate(float m_,float vx_,float vy_/*coordinates of speed vector of new Particle*/){
 		float x = 0,y = 0,vx = 0,vy = 0,m = (m_>=this.m)?this.m:m_,q = this.q, r=(float)Math.sqrt(m/Math.PI);
-		x=(float)(vx_*(this.r+r)/Math.sqrt(vx_*vx_+vy_*vy_)+this.x);
+		x=(float)(1.1f*vx_*(this.r+r)/Math.sqrt(vx_*vx_+vy_*vy_)+this.x);
+		if(vy_>0)
+		y=(float)(Math.sqrt(Math.abs(-Math.pow(x-this.x,2)+Math.pow(this.r+r,2)))+this.y);
+		else
+			y=(float)(-Math.sqrt(Math.abs(-Math.pow(x-this.x,2)+Math.pow(this.r+r,2)))+this.y);
 		
-		y=(float)(Math.sqrt(-Math.pow(x-this.x,2)+Math.pow(this.r+r,2))+vy_);
-		
+		Log.i("separateParticle",x+" "+y);
 		vx=vx_+this.vx;
 		vy=vy_+this.vy;
 		this.vx=-m*vx_/this.m+this.vx;
 		this.vy=-m*vy_/this.m+this.vy;
-		
+		this.m-=m;
+		this.r=(float)Math.sqrt(this.m/Math.PI);
 		Particle p = new Particle(x,y,vx,vy,m,q);
 		return p;
 	}

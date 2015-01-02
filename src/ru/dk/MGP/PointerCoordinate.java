@@ -2,17 +2,17 @@ package ru.dk.MGP;
 import android.util.*;
 public class PointerCoordinate{
 	boolean active;
-	float x,y,lastx,lasty;
+	float x,y,lastx,lasty,firstx,firsty;
 	int id;
 	PointerCoordinate(int id){
 		active=false;
 		this.id=id;
-		lastx=x=lasty=y=-1;
+		firstx=firsty=lastx=x=lasty=y=-1;
 	}
 	void Down(float x, float y){
 		active=true;
-		this.lastx=this.x=x;
-		this.lasty=this.y=y;
+		this.firstx=this.lastx=this.x=x;
+		this.firsty=this.lasty=this.y=y;
 		Log.i("PointerCoordinate","Down: "+this);
 	}
 	PointerCoordinate Move(float x, float y){
