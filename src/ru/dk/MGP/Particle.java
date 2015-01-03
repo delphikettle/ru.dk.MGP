@@ -469,7 +469,7 @@ public class Particle
 	
 	public Particle  separate(float m_,float vx_,float vy_/*coordinates of speed vector of new Particle*/){
 		float x = 0,y = 0,vx = 0,vy = 0,m = (m_>=this.m)?this.m:m_,q = this.q, r=(float)Math.sqrt(m/Math.PI);
-		x=(float)(1.1f*vx_*(this.r+r)/Math.sqrt(vx_*vx_+vy_*vy_)+this.x);
+		x=(float)(1.0f*vx_*(this.r+r)/Math.sqrt(vx_*vx_+vy_*vy_)+this.x);
 		if(vy_>0)
 		y=(float)(Math.sqrt(Math.abs(-Math.pow(x-this.x,2)+Math.pow(this.r+r,2)))+this.y);
 		else

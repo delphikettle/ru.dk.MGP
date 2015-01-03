@@ -23,6 +23,7 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		getActionBar().hide();
 		thisis=this;
 		Display display=((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		//Matrix.Init(display.getWidth(),display.getHeight());

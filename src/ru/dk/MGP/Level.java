@@ -278,11 +278,11 @@ public abstract class Level extends View //implements OnClickListener
 	{
 		// TODO: Implement this method
 		super.onDraw(canvas);
-		paint.setARGB(255,0,255,0);
+		paint.setARGB(255,255,255,255);
 		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeWidth(16*8*scale);
+		paint.setStrokeWidth(4);
 		paint.setShadowLayer(64*8*scale,0,0,Color.argb(255,0,255,0));
-		canvas.drawRect((x_min+x_shift-16)*scale,(y_min+y_shift-16)*scale,(x_max+x_shift+16)*scale,(y_max+y_shift+16)*scale,paint);
+		canvas.drawRect((x_min+x_shift)*scale,(y_min+y_shift)*scale,(x_max+x_shift)*scale,(y_max+y_shift)*scale,paint);
 		paint.setStyle(Paint.Style.FILL);
 		Particle p=Particle.particles[0];
 		
@@ -345,11 +345,11 @@ public abstract class Level extends View //implements OnClickListener
 	public void separateMainParticle(float x,float y)
 	{
 		// TODO: Implement this method
-		float v=1000;
+		float v=500;
 		if (Particle.particles[0]!=null){
 			Particle p= Particle.particles[0];
 			float vy;
-			if(y>p.y)vy=(float) ((y-p.y)*v/Math.sqrt(Math.pow((y-p.y),2)+Math.pow((x-p.x),2))); else
+			//if(y>p.y)vy=(float) ((y-p.y)*v/Math.sqrt(Math.pow((y-p.y),2)+Math.pow((x-p.x),2))); else
 				vy=(float) ((y-p.y)*v/Math.sqrt(Math.pow((y-p.y),2)+Math.pow((x-p.x),2)));
 			float vx;
 			if(x>p.x){
