@@ -22,7 +22,7 @@ public class MainActivity extends Activity //implements OnTouchListener
     public void onCreate(Bundle savedInstanceState)
 	{
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.levelchooser);
 		getActionBar().hide();
 		thisis=this;
 		Display display=((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
@@ -33,7 +33,7 @@ public class MainActivity extends Activity //implements OnTouchListener
 		//Particle p= new Particle(rnd.nextInt(Matrix.w),rnd.nextInt(Matrix.h),0,0,10);
 		//Matrix.Update();
 		//Particle.Init(display.getWidth(),display.getHeight());
-		thislevel = (new Test_Level.Builder(this,w,h)).create();
+//		thislevel = (new Test_Level.Builder(this,w,h)).create();
 		long time= System.currentTimeMillis();
 		//Particle.Move(100);
 		time=System.currentTimeMillis()-time;
@@ -72,8 +72,33 @@ public class MainActivity extends Activity //implements OnTouchListener
 		//thislevel.setOnTouchListener(this);
 		
     }
+	public void onBLevelClick(View view){
+		Display display=((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		int w=display.getWidth(),h=display.getHeight();
+        setContentView(R.layout.main);
+		switch (view.getId()) {
+				case R.id.BTest_Level: 
+					thislevel=(new Test_Level.Builder(this,w,h)).create().Pause();
+					break;
+				default: setContentView(R.layout.levelchooser);
+		}
+	}
 	
+	public void onLevelChooserButtonClick(View view){
+		setContentView(R.layout.levelchooser);
+		thislevel=null;
+	}
 	
+	public void onStartPauseResumeButtonClick(View view){
+		Button StartPauseResumeButton=(Button)findViewById(R.id.StartPauseResumeButton);
+		if(thislevel.mt.is_move){
+			thislevel.Pause();
+			StartPauseResumeButton.setText(getString(R.string.resume));
+		}else {
+			thislevel.Resume();
+			StartPauseResumeButton.setText(getString(R.string.pause));
+		}
+	}
 	
 	public void OnB1Click(View view)
 	{
@@ -173,10 +198,10 @@ public class MainActivity extends Activity //implements OnTouchListener
 			case MotionEvent.ACTION_UP:
 			case MotionEvent.ACTION_CANCEL:
 				for(int i=0;i<10;i++)if(pointers[i].active){
-						if(pointers[i].x==pointers[i].firstx&&pointers[i].y==pointers[i].firsty)
+						if(pointers[i].x==pointers[i].firstx&&pointers[i].y==pointers[i].firsty&&thislevel.mt.is_move)
 						{
 							thislevel.separateMainParticle((pointers[i].firstx)/thislevel.getScale()-thislevel.getXShift(),(pointers[i].firsty)/thislevel.getScale()-thislevel.getYShift());
-							Log.i("separate",pointers[i].firstx+" "+pointers[i].firsty);
+							//Log.i("separate",pointers[i].firstx+" "+pointers[i].firsty);
 						}
 						pointers[i].Up();
 				}
@@ -227,7 +252,8 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
 		// TODO: Implement this method
 		ShowToast("onPause");
-		thislevel.Pause();
+		if(thislevel!=null)
+			thislevel.Pause();
 		super.onPause();
 	}
 
@@ -236,7 +262,8 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
 		// TODO: Implement this method
 		ShowToast("onResume");
-		thislevel.Resume();
+		if(thislevel!=null)
+			thislevel.Resume();
 		super.onResume();
 	}
 

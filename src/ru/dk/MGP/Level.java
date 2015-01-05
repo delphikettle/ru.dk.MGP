@@ -172,14 +172,16 @@ public abstract class Level extends View //implements OnClickListener
 		return this.h;
 	}
 	
-	public void Pause()
+	public Level Pause()
 	{
 		mt.Pause();
+		return this;
 	}
 	
-	public void Resume()
+	public Level Resume()
 	{
 		mt.Resume();
+		return this;
 	}
 
 	public float setScale(float newscale, boolean smoothing)
@@ -281,7 +283,7 @@ public abstract class Level extends View //implements OnClickListener
 		paint.setARGB(255,255,255,255);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeWidth(4);
-		paint.setShadowLayer(64*8*scale,0,0,Color.argb(255,0,255,0));
+		paint.setShadowLayer(32*scale,0,0,Color.argb(255,0,255,0));
 		canvas.drawRect((x_min+x_shift)*scale,(y_min+y_shift)*scale,(x_max+x_shift)*scale,(y_max+y_shift)*scale,paint);
 		paint.setStyle(Paint.Style.FILL);
 		Particle p=Particle.particles[0];
@@ -356,7 +358,7 @@ public abstract class Level extends View //implements OnClickListener
 				vx=(float) Math.sqrt(v*v-vy*vy);} else
 				{vx=-(float) Math.sqrt(v*v-vy*vy);}
 			Log.i("separateMainParticle",vx+" "+vy);
-			Particle.particles[0].separate(Particle.particles[0].m*0.01f,vx,vy);
+			Particle.particles[0].separate(Particle.particles[0].m*0.025f,vx,vy);
 			}
 		Log.i("click",v+"");
 

@@ -48,7 +48,7 @@ public class Test_Level extends Level
 		this.setYMax(this.getYMax());
 		//this.setXShift(-getXMin());
 		//this.setYShift(-getYMin());
-		Particle.setG(16*16);
+		Particle.setG(4);
 		Particle.timefactor=1f;
 		//for(int i=0;i<3;i++)
 		//new Particle(rnd.nextDouble()*1024/this.getScale(),rnd.nextDouble()*812/this.getScale(),Math.random()*100-50,Math.random()*100-50,rnd.nextInt(2048*32)+1024, -2);

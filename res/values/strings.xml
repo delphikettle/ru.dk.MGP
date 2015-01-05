@@ -4,5 +4,11 @@
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Material Gravity Particles</string>
     <string name="button1">Create new Particle</string>
+	<string name="BTest_Level">Test_Level</string>
+	<string name="LevelChooserHello">Choose a level to play</string>
+	<string name="start">Start</string>
+	<string name="pause">Pause</string>
+	<string name="resume">Resume</string>
+	<string name="chooselevel">Choose the level</string>
 
 </resources>

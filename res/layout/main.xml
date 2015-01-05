@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:gravity="center"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
 	android:alpha="1.0"
 	android:orientation="vertical">
 
@@ -14,6 +13,20 @@
 		android:onClick="OnB1Click"
 		android:alpha="1.0"
 		android:gravity="top|left"/>
+
+	<Button
+		android:text="@string/start"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:onClick="onStartPauseResumeButtonClick"
+		android:id="@+id/StartPauseResumeButton"
+		android:gravity="top|right"/>
+	<Button
+		android:text="@string/chooselevel"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:onClick="onLevelChooserButtonClick"
+		/>
 
 </LinearLayout>
 
