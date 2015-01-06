@@ -252,8 +252,10 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
 		// TODO: Implement this method
 		ShowToast("onPause");
-		if(thislevel!=null)
+		if(thislevel!=null){
 			thislevel.Pause();
+			((Button)findViewById(R.id.StartPauseResumeButton)).setText(getString(R.string.resume));
+		}
 		super.onPause();
 	}
 
@@ -262,8 +264,8 @@ public class MainActivity extends Activity //implements OnTouchListener
 	{
 		// TODO: Implement this method
 		ShowToast("onResume");
-		if(thislevel!=null)
-			thislevel.Resume();
+		//if(thislevel!=null)
+		//	thislevel.Resume();
 		super.onResume();
 	}
 

@@ -498,6 +498,12 @@ public class Particle
 		//Log.i("Particle.Change",this.toString());
 		this.ax=0;
 		this.ay=0;
+		if(2*this.r>=getXMax()-getXMin()){
+			this.separate(this.m*0.01f,(float)(Math.random()*100-Math.random()*100),(float)(Math.random()*1000-Math.random()*1000));
+		}
+		if(2*this.r>=getYMax()-getYMin()){
+			this.separate(this.m*0.01f,(float)(Math.random()*1000-Math.random()*1000),(float)(Math.random()*100-Math.random()*100));
+		}
 		/*
 		if(x<0){
 			x=-x;

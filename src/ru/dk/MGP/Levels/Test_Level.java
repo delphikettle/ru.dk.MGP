@@ -44,7 +44,7 @@ public class Test_Level extends Level
 
 		this.setXMin(0);//-this.getXMax());
 		this.setYMin(0);//-this.getYMax());
-		this.setXMax(this.getXMax());
+		this.setXMax(this.getXMax()*2);
 		this.setYMax(this.getYMax());
 		//this.setXShift(-getXMin());
 		//this.setYShift(-getYMin());
@@ -58,7 +58,7 @@ public class Test_Level extends Level
 		//new Particle(500,100,0,15,2500*Math.PI,-2);
 		//new Particle(0,0,0,0,1024*4*16,2);
 		//new Particle(500/2,500/2,0,0,512,-2);
-		new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100-50,(float)Math.random()*100-50,((1024*8*4)),2*((float)(( rnd.nextDouble()*8-4))));
+		new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100-50,(float)Math.random()*100-50,((1024*8*4*36)),2*((float)(( rnd.nextDouble()*8-4))));
 		for(int i=0;i<0;i++)
 			new Particle(rnd.nextFloat()*(getXMax()-getXMin()-200*2*4)+getXMin()+100*2*4,rnd.nextFloat()*(getYMax()-getYMin()-200*2*4)+getYMin()+100*4*2,(float)Math.random()*100/2-50/2,(float)Math.random()*100/2-50/2,(rnd.nextInt(1024*2)+32),(float)( rnd.nextDouble()*8-4));
 		//new Particle((rnd.nextFloat()*1920*1-0*1920)/this.getScale(),(rnd.nextFloat()*1024*1-0*1024)/this.getScale(),((float)Math.random()*1000-500)/16,((float)Math.random()*1000-500)/16,(rnd.nextInt(1024*4)+2048),(float)( rnd.nextDouble()*8-4));
